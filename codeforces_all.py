@@ -6,7 +6,6 @@ import csv
 import matplotlib
 from matplotlib import pyplot as plt
 from matplotlib.gridspec import GridSpec
-import urllib2
 import pandas as pd
 from pandas import DataFrame
 
@@ -70,24 +69,24 @@ def download(fin,location):
     code =  pre[0].text
     te = [code.strip(),fin[2],fin[3].strip()]
     fwrite(te,location)
-    print 'done with ' + fin[2]
+    print('done with ' + fin[2])
     
 
 def run():
     while True:
-        location = raw_input('Enter the folder location for download : ')
+        location = input('Enter the folder location for download : ')
         if os.path.isdir(location):
             break
         else:
-            print 'Invalid Path. Please try again'
+            print('Invalid Path. Please try again')
     while True:
         try:
-            username = raw_input('Enter the username on codeforces : ')
+            username = input('Enter the username on codeforces : ')
             url = 'http://codeforces.com/submissions/' + username
             soup = html(url)
             break
         except:
-            print 'Invalid Username.Please try again.'
+            print('Invalid Username.Please try again.')
 
     div = soup.find_all('div',class_='pagination')
     li = div[1].ul.find_all('li')
@@ -130,7 +129,7 @@ def run():
                 download([subid,probid,temp2,td[4].text.strip()],location)
                 add_tag(problemlink)
             except:
-                print i,j
+                print(str(i) +  " " + str(j))
                 print [subid,probid,temp2,td[4].text]
 
 
@@ -156,7 +155,7 @@ def run():
             recvalue = recdic[key]
         except:
             recvalue = 50
-            print key
+            print(key)
         writer.writerow([key,value,recvalue])
     ofile.close()
     visualize(location,username)
